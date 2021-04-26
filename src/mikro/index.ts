@@ -10,10 +10,11 @@ router.get(
   '/orders',
   async (req: Request, res: Response, next: NextFunction) => {
     const { simple } = req.query;
-
     const populate = simple ? undefined : ['items'];
+    const em = DI.orm.em.fork();
     try {
-      const orders = await DI.orderRepository.find(
+      const orders = await em.find(
+        Order,
         {},
         {
           populate,
@@ -30,9 +31,10 @@ router.post(
   '/orders',
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const order = DI.orm.em.create(Order, req.body);
-      order.items.add(DI.orm.em.create(Item, req.body[0].items));
-      await DI.orm.em.persistAndFlush(order);
+      const em = DI.orm.em.fork();
+      const order = em.create(Order, req.body);
+      order.items.add(em.create(Item, req.body[0].items));
+      await em.persistAndFlush(order);
       return res.status(200).send({ orders: [order] });
     } catch (error) {
       return next('Error processing values');
