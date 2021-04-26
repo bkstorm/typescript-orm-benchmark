@@ -1,0 +1,13 @@
+version: "3.8"
+services: 
+    postgres:
+        image: postgres:13.2-alpine
+        ports: 
+            - 5430:5432
+        environment:
+        - POSTGRES_USER=reviewty
+        - POSTGRES_PASSWORD=123456aA
+        volumes:
+        - postgres:/var/lib/postgresql/data
+volumes:
+    postgres:

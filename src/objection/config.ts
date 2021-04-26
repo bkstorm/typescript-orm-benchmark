@@ -1,4 +1,5 @@
 import 'dotenv/config';
+import { Knex } from 'knex';
 
 import path from 'path';
 
@@ -9,7 +10,7 @@ const configuration = {
   acquireConnectionTimeout: 50000,
   migrations: {
     tableName: 'knex_migrations',
-    directory: path.resolve(__dirname, './migrations')
+    directory: path.resolve(__dirname, './migrations'),
   },
   connection: {
     host: process.env.DB_HOST as string,
@@ -17,9 +18,9 @@ const configuration = {
     password: process.env.DB_PASSWORD as string,
     database: process.env.DB_NAME as string,
     port: process.env.DB_PORT as string,
-    connectionTimeout: 10000
+    connectionTimeout: 10000,
   },
   timezone: 'UTC',
-} as import('knex').Config;
+} as Knex.Config;
 
 export = configuration;

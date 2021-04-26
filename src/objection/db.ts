@@ -10,29 +10,29 @@ export const Transaction = transaction;
 
 export class Item extends Model {
   static get tableName(): string {
-    return "items";
+    return 'items';
   }
 }
 
 export class Order extends Model {
   static get tableName(): string {
-    return "orders";
+    return 'orders';
   }
 
-  static get relationMappings(): { items: RelationMapping } {
+  static get relationMappings(): { items: RelationMapping<Item> } {
     return {
       items: {
         relation: Model.ManyToManyRelation,
         modelClass: Item,
         join: {
-          from: "orders.id",
+          from: 'orders.id',
           through: {
-            from: "orders_items.order_id",
-            to: "orders_items.item_id"
+            from: 'orders_items.order_id',
+            to: 'orders_items.item_id',
           },
-          to: "items.id"
-        }
-      }
+          to: 'items.id',
+        },
+      },
     };
   }
 }
