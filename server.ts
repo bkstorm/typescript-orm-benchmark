@@ -37,10 +37,6 @@ async function bootstrap(): Promise<void> {
     }),
   );
 
-  app.use((req, res, next) => {
-    RequestContext.create(DI.orm.em, next);
-  });
-
   app.use('/sequelize', sequelize);
   app.use('/objection', objection);
   app.use('/knex', knex);
