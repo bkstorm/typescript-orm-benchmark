@@ -1,6 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import { MikroORM, RequestContext, EntityRepository } from '@mikro-orm/core';
+import { MikroORM, EntityRepository } from '@mikro-orm/core';
 
 import knex from './src/knex';
 import objection from './src/objection';
